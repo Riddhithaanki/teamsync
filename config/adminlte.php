@@ -322,6 +322,12 @@ return [
             'icon' => 'far fa-fw fa-users',
             'label_color' => 'success',
         ],
+        [
+            'text' => 'Chat',
+            'url' => '/chats',
+            'icon' => 'far fa-fw fa-users',
+            'label_color' => 'success',
+        ],
 
     ],
 

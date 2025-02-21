@@ -68,6 +68,10 @@ Route::middleware(['auth'])->group(function () {
         return view('tasks.meeting');
     })->name('meeting');
 
+    Route::get('chats', [App\Http\Controllers\ChatController::class, 'index'])->name('chats');
+        
+   
+
 });
 
 Auth::routes();
