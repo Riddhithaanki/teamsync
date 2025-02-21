@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Landing Page
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -45,26 +45,31 @@ Route::middleware(['auth'])->group(function () {
 
     // Employee Resource Routes
     Route::resource('/employees', EmployeeController::class);
-
-     //Attendence file route 
+    Route::post('employess/save', [EmployeeController::class, 'save'])->name('employees.save');
+    Route::post('employess/update', [EmployeeController::class, 'update'])->name('employees.updateData');
+     //Attendence file route
      Route::get('/dashboard1', function () {
         return view('tasks.dashboard');
     })->name('dashboard1');
 
-    //Attendence file route 
+    //Attendence file route
     Route::get('/attendence', function () {
         return view('tasks.attendence');
     })->name('attendence');
     Route::post('/attendance/mark', [AttendenceController::class, 'markAttendance'])->name('attendance.mark');
 
-    //message file route 
+    //message file route
     Route::get('/message', function () {
         return view('tasks.message');
     })->name('message');
 
-    //metting file route 
+    //metting file route
     Route::get('/meeting', function () {
         return view('tasks.meeting');
     })->name('meeting');
-    
+
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
