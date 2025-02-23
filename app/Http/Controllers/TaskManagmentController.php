@@ -12,18 +12,18 @@ use Laravel\Pail\ValueObjects\Origin\Console;
 class TaskManagmentController extends Controller
 {
     public function index()
-    {   
-         $tasks = project::get();
-         
-         return view('taskmanagment.index'); // Make sure this view exists
-        
+    {
+        $projects = Project::get();
+
+        return view('taskmanagment.index',compact('projects')); // Make sure this view exists
+
     }
     public function create()
     {
         return view('taskmanagment.create');
     }
 
-    
+
     public function save(Request $request)
     {
         $request->validate([
@@ -31,28 +31,26 @@ class TaskManagmentController extends Controller
             'desc' => 'required',
             'tech' => 'nullable',
             'sdate' => 'required',
-            'edate' => 'required',
-            // Debugging: Print validation errors
-
+            'edate' => 'required'
         ]);
         if ($errors = $request->session()->get('errors')) {
-            dd($errors->all()); 
+            dd($errors->all());
         }// This will stop execution and show validation errors
+
         try {
             $project = new Project();
             $project->created_by_id = Auth::id(); // Store the logged-in user's ID
-            $project->project_name = $request->project_name;
-            $project->project_desc = $request->project_desc;
-            $project->project_tech = $request->project_tech;
-            $project->project_start_date = $request->project_start_date;
-            $project->project_end_date = $request->project_end_date;
+            $project->project_name = $request->name;
+            $project->project_desc = $request->desc;
+            $project->project_tech = $request->tech;
+            $project->project_start_date = date('Y-m-d H:i:s', strtotime($request->sdate));
+            $project->project_end_date = date('Y-m-d H:i:s', strtotime($request->edate));
             $project->save();
-    
+
             return redirect()->route('taskmanagment.index')->with('success', 'Project added successfully!');
         } catch (\Exception $e) {
-            return back()->withErrors('Failed to save project. Error: ' . $e->getMessage());
+            // return back()->withErrors('Failed to save project. Error: ' . $e->getMessage());
+            return redirect()->route('taskmanagment.index')->with('error', 'Failed to save project. Error: ' . $e->getMessage());
         }
-
-       // return redirect()->route('taskmanagment.index')->with('success', 'Project added successfully!');
     }
 }

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Task Management')
+@section('title', 'Project Management')
 
 @section('content_header')
     <div class="container-fluid">
@@ -10,8 +10,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Employees</li>
+                    <li class="breadcrumb-item"><a href=" {{ route('dashboard') }} ">Home</a></li>
+                    <li class="breadcrumb-item active">Projects</li>
                 </ol>
             </div>
         </div>
@@ -44,28 +44,49 @@
                         <table id="projects-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    <th>SR No</th>
                                     <th>Project Name</th>
                                     <th>Description </th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Assign</th>
+                                    <th>Action</th>
                                 </tr>
-                                @foreach ($projects as $project)
-                                <tr>
-                                    <td>
-                                        <span class="name">{{ $project->project_name }}</span>
-                                    </td>
-                                    <td>{{ $project->project_desc }}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="{{ route('employees.edit', \Crypt::encrypt($project->id)) }}"
-                                                class="btn btn-warning btn-sm" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
                             </thead>
                             <tbody>
-                          </tbody>
+                                @foreach ($projects as $key => $project)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>
+                                            <span class="name">{{ $project->project_name }}</span>
+                                        </td>
+                                        <td>{{ $project->project_desc }}</td>
+                                        <td>{{ $project->project_start_date }}</td>
+                                        <td>{{ $project->project_end_date }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info"> Create Task </button>
+                                            <button class="btn btn-sm btn-success"> Assign Task </button>
+                                            <button class="btn btn-sm btn-success"> Assign User </button>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{{ route('employees.edit', \Crypt::encrypt($project->id)) }}"
+                                                    class="btn btn-warning btn-sm mx-2" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="{{ route('employees.edit', \Crypt::encrypt($project->id)) }}"
+                                                    class="btn btn-success btn-sm mx-2" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{{ route('employees.edit', \Crypt::encrypt($project->id)) }}"
+                                                    class="btn btn-danger btn-sm mx-2" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -85,7 +106,7 @@
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#employees-table').DataTable({
+            $('#projects-table').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
