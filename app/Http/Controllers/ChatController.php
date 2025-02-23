@@ -12,4 +12,16 @@ class ChatController extends Controller
         $employees = Employee::with('user')->get();
         return view('chat.index', compact('employees'));
     }
+    public function seen(Request $request)
+{
+    try {
+        $message = Message::where('from_id', $request->from_id)
+                          ->where('to_id', $request->to_id)
+                          ->update(['seen' => true]);
+
+        return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
 }

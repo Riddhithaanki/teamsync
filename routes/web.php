@@ -9,7 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendenceController;
-use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\TaskManagmentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,30 +47,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/employees', EmployeeController::class);
     Route::post('employess/save', [EmployeeController::class, 'save'])->name('employees.save');
     Route::post('employess/update', [EmployeeController::class, 'update'])->name('employees.updateData');
-     //Attendence file route
-     Route::get('/dashboard1', function () {
-        return view('tasks.dashboard');
-    })->name('dashboard1');
-
-    //Attendence file route
-    Route::get('/attendence', function () {
-        return view('tasks.attendence');
-    })->name('attendence');
-    Route::post('/attendance/mark', [AttendenceController::class, 'markAttendance'])->name('attendance.mark');
-
-    //message file route
-    Route::get('/message', function () {
-        return view('tasks.message');
-    })->name('message');
-
-    //metting file route
-    Route::get('/meeting', function () {
-        return view('tasks.meeting');
-    })->name('meeting');
-
-    Route::get('chats', [App\Http\Controllers\ChatController::class, 'index'])->name('chats');
-        
-   
+    
+  
+    // Task Managment 
+    Route::post('task/save', [TaskManagmentController::class, 'save'])->name('taskmanagment.save');
+    Route::post('task/update', [TaskManagmentController::class, 'update'])->name('taskmanagment.updateData');
+    Route::get('task/create', [TaskManagmentController::class, 'create'])->name('taskmanagment.create');
+    Route::post('task/edit', [TaskManagmentController::class, 'edit'])->name('taskmanagment.edit');
+    Route::get('task',[TaskManagmentController::class, 'index'])->name('taskmanagment.index');
 
 });
 

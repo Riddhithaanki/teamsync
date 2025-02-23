@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.6",
         "manhnt/chatify": "^1.0",
+        "munafio/chatify": "^1.6",
         "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {

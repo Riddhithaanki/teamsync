@@ -322,12 +322,14 @@ return [
             'icon' => 'far fa-fw fa-users',
             'label_color' => 'success',
         ],
+        ['header' => 'Project'],
         [
-            'text' => 'Chat',
-            'url' => '/chats',
+            'text' => 'Task Managment',
+            'url' => '/task',
             'icon' => 'far fa-fw fa-users',
             'label_color' => 'success',
         ],
+       
 
     ],
 
