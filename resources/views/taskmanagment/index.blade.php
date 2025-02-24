@@ -70,15 +70,15 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{ route('employees.edit', \Crypt::encrypt($project->id)) }}"
+                                                <a href="{{ route('taskmanagment.edit', \Crypt::encrypt($project->id)) }}"
                                                     class="btn btn-warning btn-sm mx-2" title="Edit">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a href="{{ route('employees.edit', \Crypt::encrypt($project->id)) }}"
+                                                <a href="{{ route('taskmanagment.view', \Crypt::encrypt($project->id)) }}"
                                                     class="btn btn-success btn-sm mx-2" title="View">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('employees.edit', \Crypt::encrypt($project->id)) }}"
+                                                <a href="{{ route('taskmanagment.delete', \Crypt::encrypt($project->id)) }}"
                                                     class="btn btn-danger btn-sm mx-2" title="Delete">
                                                     <i class="fas fa-trash"></i>
                                                 </a>

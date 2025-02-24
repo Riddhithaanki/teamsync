@@ -14,111 +14,68 @@
                     <h3 class="card-title">Project Information</h3>
                 </div>
 
-                <form action="{{ route('taskmanagment.updateData') }}" method="POST">
+                <form action="{{ route('taskmanagment.updateData',$project->id) }}" method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        id="name" placeholder="Enter full name" value="{{ old('name') }}" required>
-                    @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                        id="email" placeholder="Enter email" value="{{ old('email') }}" required>
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <label for="name"> Project Name</label>
+                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" placeholder="Enter Project name" value="{{ old('name', $project->projects->name) }}" required>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="desc">Project Description</label>
+                                    <input type="text" name="desc" class="form-control "
+                                        id="desc" placeholder="Enter Project Description" value="{{ old('desc',$project->desc) }}" required>
+                                    @error('desc')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror"
-                            id="phone" placeholder="Enter phone number" value="{{ old('phone') }}" required>
-                        @error('phone')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="role">Role</label>
-                    <select name="role" class="form-control select2 @error('role') is-invalid @enderror" id="role">
-                        <option value="">Select Role</option>
-                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="hr" {{ old('role') == 'hr' ? 'selected' : '' }}>HR</option>
-                        <option value="tech_lead" {{ old('role') == 'tech_lead' ? 'selected' : '' }}>Tech Lead</option>
-                        <option value="developer" {{ old('role') == 'developer' ? 'selected' : '' }}>Developer</option>
-                    </select>
-                    @error('role')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="salary">Salary</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">$</span>
+    
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tech">Project Technoloy</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                         
+                                        </div>
+                                        <input type="text" name="tech" class="form-control"
+                                            id="tech" placeholder="Enter Project Technology" value="{{ old('tech',$project->tech) }}" required>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                
+                                <label for="date">Select Start Date:</label>
+                                <input type="date" id="sdate" name="sdate" class="form-control" value="{{old('sdate',$project->sdate)}}" required >    
+                                       
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                
+                                <label for="date">Select End Date:</label>
+                                <input type="date" id="edate" name="edate" class="form-control" value="{{old('edate',$project->edate)}}" required>    
+                                       
+                                </div>
+                            </div>
                         </div>
-                        <input type="number" name="salary" class="form-control @error('salary') is-invalid @enderror"
-                            id="salary" placeholder="Enter salary" value="{{ old('salary') }}">
-                        @error('salary')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="joining_date">Joining Date</label>
-                    <div class="input-group date" id="joining_date_picker" data-target-input="nearest">
-                        <input type="text" name="joining_date"
-                            class="form-control datetimepicker-input @error('joining_date') is-invalid @enderror"
-                            data-target="#joining_date_picker" value="{{ old('joining_date') }}" required>
-                        <div class="input-group-append" data-target="#joining_date_picker" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                        @error('joining_date')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save mr-1"></i> Update Employee

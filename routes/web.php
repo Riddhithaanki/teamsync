@@ -47,14 +47,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/employees', EmployeeController::class);
     Route::post('employess/save', [EmployeeController::class, 'save'])->name('employees.save');
     Route::post('employess/update', [EmployeeController::class, 'update'])->name('employees.updateData');
+  //  Route::post('employes/edit', [EmployeeController::class,'edit'])->name('employees.edit');
     
   
     // Task Managment 
     Route::post('task/save', [TaskManagmentController::class, 'save'])->name('taskmanagment.save');
     Route::post('task/update', [TaskManagmentController::class, 'update'])->name('taskmanagment.updateData');
     Route::get('task/create', [TaskManagmentController::class, 'create'])->name('taskmanagment.create');
-    Route::post('task/edit', [TaskManagmentController::class, 'edit'])->name('taskmanagment.edit');
+    Route::get('task/edit/{id}', [TaskManagmentController::class, 'edit'])->name('taskmanagment.edit');
     Route::get('task',[TaskManagmentController::class, 'index'])->name('taskmanagment.index');
+    Route::post('task/delete',[TaskManagmentController::class,'delete'])->name('taskmanagment.delete');
+    Route::post('task/view', [TaskManagmentController::class,'view'])->name('taskmanagment.view');
 
 });
 

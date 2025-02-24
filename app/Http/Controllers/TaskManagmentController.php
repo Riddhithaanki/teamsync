@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\ProjectUser;
-
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +22,6 @@ class TaskManagmentController extends Controller
     {
         return view('taskmanagment.create');
     }
-
 
     public function save(Request $request)
     {
@@ -53,4 +52,42 @@ class TaskManagmentController extends Controller
             return redirect()->route('taskmanagment.index')->with('error', 'Failed to save project. Error: ' . $e->getMessage());
         }
     }
+
+    public function edit($id){
+        $projects = Project::get();
+        $id = Crypt::decrypt($id);
+        // $employee = Employee::findOrFail($id);
+        $project = Project::where('id', $id)->first();
+        return view('taskmanagment.edit', compact('project'));
+    }
+    public function update(Request $request , $id){
+        $request->validate([
+            'name' => 'required',
+            'desc' => 'required',
+            'tech' => 'nullable',
+            'sdate' => 'required',
+            'edate' => 'required'
+        ]);
+
+           $project = Project::findOrFail($request->id);
+           $project->name = $request->name;
+           $project->desc = $request->desc;
+           $project->project_tech = $request->tech;
+           $project->project_start_date = date('Y-m-d H:i:s', strtotime($request->sdate));
+           $project->project_end_date = date('Y-m-d H:i:s', strtotime($request->edate));
+           $project->save();
+           return redirect()->route('taskmanagment.index')->with('success','project update succesfully ');
+    }
+
+    public function destroy(Request $request){
+        // $request->validate([
+
+        // ])
+    }
+
+
+    public function view(Request $request){
+        return view('taskmanagment.view');
+    }
+
 }
