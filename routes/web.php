@@ -63,7 +63,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('task/assignuser', [TaskManagmentController::class,'assignuserview'])->name('taskmanagment.assignuserview');
     Route::get('task/createtask/{id}', [TaskManagmentController::class,'createtask'])->name('taskmanagment.createtask');
     Route::post('task/savetask', [TaskManagmentController::class,'savetask'])->name('taskmanagment.savetask');
-
+    Route::get('task/showtask', [TaskManagmentController::class,'showtask'])->name('taskmanagment.showtask');
+    Route::post('task/viewtask', [TaskManagmentController::class,'viewtask'])->name('taskmanagment.viewtask');
 });
 
 Auth::routes();

@@ -181,5 +181,35 @@ class TaskManagmentController extends Controller
             // return back()->withErrors('Failed to save project. Error: ' . $e->getMessage());
             return redirect()->route('taskmanagment.index')->with('success', 'Failed to add task . Error: ' . $e->getMessage());
         }
+    }
+        // public function showtask(){
+        //     $project = Project::all();
+        //     dd($project->id);
+        //     $user = User::all();
+        //     $id = $project->project_id;
+        //     $tasks = Task::where('task_project_id', $id)->get();
+        //     return view('taskmanagment.showtask' ,compact('project','user'));
+        // }
+
+        public function showtask()
+{
+            $projects = Project::all(); // This is a collection
+        
+   
+           
+            $users = User::all();
+             return view('taskmanagment.showtask', compact('projects', 'users'));
 }
+        public function viewtask(Request $request){
+            //dd($request->all());
+            $tasks = Task::all();
+            $projects = Project::get($request);
+            foreach( $projects as $project ){
+               
+            }
+            print_r($project->id);
+          
+           
+        }
+
 }

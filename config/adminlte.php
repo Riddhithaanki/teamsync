@@ -331,7 +331,7 @@ return [
         ],
         [
             'text' => 'Task Managment',
-            'url' => '/task',
+            'url' => 'task/showtask',
             'icon' => 'far fa-fw fa-users',
             'label_color' => 'success',
         ],
