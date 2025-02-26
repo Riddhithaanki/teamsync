@@ -324,6 +324,12 @@ return [
         ],
         ['header' => 'Project'],
         [
+            'text' => 'Project Managment',
+            'url' => '/task',
+            'icon' => 'far fa-fw fa-users',
+            'label_color' => 'success',
+        ],
+        [
             'text' => 'Task Managment',
             'url' => '/task',
             'icon' => 'far fa-fw fa-users',

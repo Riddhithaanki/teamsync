@@ -12,6 +12,7 @@ use App\Http\Controllers\AttendenceController;
 use App\Http\Controllers\TaskManagmentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\model\Task;
 
 // Landing Page
 Route::get('/', function () {
@@ -56,8 +57,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('task/create', [TaskManagmentController::class, 'create'])->name('taskmanagment.create');
     Route::get('task/edit/{id}', [TaskManagmentController::class, 'edit'])->name('taskmanagment.edit');
     Route::get('task',[TaskManagmentController::class, 'index'])->name('taskmanagment.index');
-    Route::post('task/delete',[TaskManagmentController::class,'delete'])->name('taskmanagment.delete');
-    Route::post('task/view', [TaskManagmentController::class,'view'])->name('taskmanagment.view');
+    Route::get('task/delete',[TaskManagmentController::class,'destroy'])->name('taskmanagment.delete');
+    Route::get('task/view/{id}', [TaskManagmentController::class,'view'])->name('taskmanagment.view');
+    Route::get('task/assignuser/{id}', [TaskManagmentController::class,'assignuser'])->name('taskmanagment.assignuser');
+    Route::post('task/assignuser', [TaskManagmentController::class,'assignuserview'])->name('taskmanagment.assignuserview');
+    Route::get('task/createtask/{id}', [TaskManagmentController::class,'createtask'])->name('taskmanagment.createtask');
+    Route::post('task/savetask', [TaskManagmentController::class,'savetask'])->name('taskmanagment.savetask');
 
 });
 
