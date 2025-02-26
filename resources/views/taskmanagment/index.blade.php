@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($projects as $key => $project)
-                                    
+
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>
@@ -64,11 +64,11 @@
                                         <td>{{ $project->project_desc }}</td>
                                         <td>{{ $project->project_start_date }}</td>
                                         <td>{{ $project->project_end_date }}</td>
-                                        <td> 
-                                            <a href="{{ route('taskmanagment.createtask',$project->id)}}" class="btn btn-sm btn-success"> Create Task </a> 
+                                        <td>
+                                            <a href="{{ route('taskmanagment.createtask',$project->id)}}" class="btn btn-sm btn-success"> Create Task </a>
                                             {{-- <a href="taskmanagment/assignuser/{id}" class="btn btn-sm btn-success"> Assign User </a>  --}}
-                                            <a href="{{ url('task/assignuser',$project->id) }}" class="btn btn-sm btn-success"> Assign User </a> 
-                                        {{-- <a href="{{ url(path: 'taskmanagment.assignuser'.$project->id) }}" class="btn btn-sm btn-success"> Assign User </a> --}}
+                                            <a href="{{ url('task/assignuser',$project->id) }}" class="btn btn-sm btn-success"> Assign User </a>
+                                            <a href="{{ route('taskmanagment.showtask',$project->id) }}" class="btn btn-sm btn-warning"> Show Task </a>
                                         </td>
                                         <td>
                                             <div class="btn-group">

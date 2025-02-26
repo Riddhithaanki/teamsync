@@ -67,7 +67,7 @@ class TaskManagmentController extends Controller
 
     public function update(Request $request)
     {
-        
+
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
@@ -92,7 +92,7 @@ class TaskManagmentController extends Controller
         $project->delete();
         return redirect('/taskmanagment.index');
     }
-    
+
     public function view($id)
     {
         //dd($eid);
@@ -145,7 +145,7 @@ class TaskManagmentController extends Controller
             'priority' => 'required',
             //'status' => 'required'
         ]);
-   
+
         // dd($request->all());
         if ($errors = $request->session()->get('errors')) {
             dd($request->session()->get('errors'));
@@ -191,25 +191,15 @@ class TaskManagmentController extends Controller
         //     return view('taskmanagment.showtask' ,compact('project','user'));
         // }
 
-        public function showtask()
+        public function showtask($id)
 {
-            $projects = Project::all(); // This is a collection
-        
-   
-           
-            $users = User::all();
-             return view('taskmanagment.showtask', compact('projects', 'users'));
+            $project = Project::find($id); // This is a collection
+            $tasks = Task::where('task_project_id',$project->id)->latest()->get();
+            return view('taskmanagment.showtask', compact('tasks','project'));
 }
         public function viewtask(Request $request){
-            //dd($request->all());
-            $tasks = Task::all();
-            $projects = Project::get($request);
-            foreach( $projects as $project ){
-               
-            }
-            print_r($project->id);
-          
-           
+            $projects = Project::where('id',$request->project)->latest()->first();
+            $tasks = Task::where('task_project_id',$request->project)->latest()->get();
         }
 
 }

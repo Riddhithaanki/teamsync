@@ -49,9 +49,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('employess/save', [EmployeeController::class, 'save'])->name('employees.save');
     Route::post('employess/update', [EmployeeController::class, 'update'])->name('employees.updateData');
   //  Route::post('employes/edit', [EmployeeController::class,'edit'])->name('employees.edit');
-    
-  
-    // Task Managment 
+
+
+    // Task Managment
     Route::post('task/save', [TaskManagmentController::class, 'save'])->name('taskmanagment.save');
     Route::post('task/update', [TaskManagmentController::class, 'update'])->name('taskmanagment.updateData');
     Route::get('task/create', [TaskManagmentController::class, 'create'])->name('taskmanagment.create');
@@ -63,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('task/assignuser', [TaskManagmentController::class,'assignuserview'])->name('taskmanagment.assignuserview');
     Route::get('task/createtask/{id}', [TaskManagmentController::class,'createtask'])->name('taskmanagment.createtask');
     Route::post('task/savetask', [TaskManagmentController::class,'savetask'])->name('taskmanagment.savetask');
-    Route::get('task/showtask', [TaskManagmentController::class,'showtask'])->name('taskmanagment.showtask');
+    Route::get('task/showtask/{id}', [TaskManagmentController::class,'showtask'])->name('taskmanagment.showtask');
     Route::post('task/viewtask', [TaskManagmentController::class,'viewtask'])->name('taskmanagment.viewtask');
 });
 
