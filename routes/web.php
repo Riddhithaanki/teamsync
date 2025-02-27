@@ -8,7 +8,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AttendenceController;
+use App\Http\Controllers\AttendencesController;
 use App\Http\Controllers\TaskManagmentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -67,6 +67,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('task/viewtask', [TaskManagmentController::class,'viewtask'])->name('taskmanagment.viewtask');
     Route::get('task/edittask{id}', [TaskManagmentController::class,'edittask'])->name('taskmanagment.edittask');
     Route::post('task/deletetask', [TaskManagmentController::class,'deletetask'])->name('taskmanagment.deletetask');
+
+    //attendence managment
+    Route::get('attendences',[AttendencesController::class,'index'])->name('attendences.index');
 });
 
 Auth::routes();

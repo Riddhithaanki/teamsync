@@ -322,19 +322,20 @@ return [
             'icon' => 'far fa-fw fa-users',
             'label_color' => 'success',
         ],
+        [
+            'text' => 'Attendence',
+            'url' => '/attendences',
+            'icon' => 'far fa-fw fa-users',
+            'label_color' => 'success',
+        ],
         ['header' => 'Project'],
         [
             'text' => 'Project Managment',
             'url' => '/task',
             'icon' => 'far fa-fw fa-users',
             'label_color' => 'success',
-        ],
-        [
-            'text' => 'Task Managment',
-            'url' => 'task/showtask',
-            'icon' => 'far fa-fw fa-users',
-            'label_color' => 'success',
-        ],
+        ]
+        
        
 
     ],
