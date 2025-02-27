@@ -61,11 +61,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('task/view/{id}', [TaskManagmentController::class,'view'])->name('taskmanagment.view');
     Route::get('task/assignuser/{id}', [TaskManagmentController::class,'assignuser'])->name('taskmanagment.assignuser');
     Route::post('task/assignuser', [TaskManagmentController::class,'assignuserview'])->name('taskmanagment.assignuserview');
+    
     Route::get('task/createtask/{id}', [TaskManagmentController::class,'createtask'])->name('taskmanagment.createtask');
     Route::post('task/savetask', [TaskManagmentController::class,'savetask'])->name('taskmanagment.savetask');
     Route::get('task/showtask/{id}', [TaskManagmentController::class,'showtask'])->name('taskmanagment.showtask');
+    
     Route::post('task/viewtask', [TaskManagmentController::class,'viewtask'])->name('taskmanagment.viewtask');
     Route::get('task/edittask{id}', [TaskManagmentController::class,'edittask'])->name('taskmanagment.edittask');
+    Route::post('task/edittask', [TaskManagmentController::class,'updateTask'])->name('taskmanagment.updateTask');
     Route::post('task/deletetask', [TaskManagmentController::class,'deletetask'])->name('taskmanagment.deletetask');
 
     //attendence managment

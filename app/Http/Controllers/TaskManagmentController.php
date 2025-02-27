@@ -88,7 +88,7 @@ class TaskManagmentController extends Controller
 
     public function destroy($id)
     {
-        $project= Project::whereId($id)->first();
+        $project = Project::whereId($id)->first();
         $project->delete();
         return redirect('/taskmanagment.index');
     }
@@ -108,40 +108,44 @@ class TaskManagmentController extends Controller
             }
         }
         // dd($users);
-        return view('taskmanagment.view',compact('project','users','tasks'));
+        return view('taskmanagment.view', compact('project', 'users', 'tasks'));
     }
 
-    public function assignuser($id){
-       // dd($id);
+    public function assignuser($id)
+    {
+        // dd($id);
         $project = Project::where('id', $id)->first();
-        $users = User::where('role','!=','admin')->get();
-       // dd($users,$project);
-       // return redirect('taskmanagment.assignuserview')->with('success','User Added Successfully ');
-        return view('taskmanagment.assignuser',compact('project','users'));
+        $users = User::where('role', '!=', 'admin')->get();
+        // dd($users,$project);
+        // return redirect('taskmanagment.assignuserview')->with('success','User Added Successfully ');
+        return view('taskmanagment.assignuser', compact('project', 'users'));
         //return $assignuser;
     }
 
-    public function assignuserview(Request $request){
-       // dd($request->all());
+    public function assignuserview(Request $request)
+    {
+        // dd($request->all());
         $projectUser = new ProjectUser();
         $projectUser->user_id = $request->assignuser;
         $projectUser->project_id = $request->project_id;
         $projectUser->save();
 
-        return redirect()->route('taskmanagment.index')->with('success','User Assigned Success');
+        return redirect()->route('taskmanagment.index')->with('success', 'User Assigned Success');
     }
 
-    public function createtask($id){
+    public function createtask($id)
+    {
         $project = Project::where('id', $id)->first();
         $users = User::all();
-        return view('taskmanagment.createtask',compact('project','users'));
+        return view('taskmanagment.createtask', compact('project', 'users'));
     }
 
-    public function savetask(Request $request){
+    public function savetask(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
-           // 'createdby' => 'nullable',
+            // 'createdby' => 'nullable',
             'priority' => 'required',
             //'status' => 'required'
         ]);
@@ -153,15 +157,15 @@ class TaskManagmentController extends Controller
         try {
 
 
-            if($request->status =="pending"){
+            if ($request->status == "pending") {
                 $status = 0;
-            }elseif($request->status == "completed"){
+            } elseif ($request->status == "completed") {
                 $status = 1;
-            }elseif($request->status == "working"){
+            } elseif ($request->status == "working") {
                 $status = 2;
-            }elseif($request->status == "overdue"){
+            } elseif ($request->status == "overdue") {
                 $status = 3;
-            }else{
+            } else {
                 $status = 0;
             }
 
@@ -182,49 +186,87 @@ class TaskManagmentController extends Controller
             return redirect()->route('taskmanagment.index')->with('success', 'Failed to add task . Error: ' . $e->getMessage());
         }
     }
-        // public function showtask(){
-        //     $project = Project::all();
-        //     dd($project->id);
-        //     $user = User::all();
-        //     $id = $project->project_id;
-        //     $tasks = Task::where('task_project_id', $id)->get();
-        //     return view('taskmanagment.showtask' ,compact('project','user'));
-        // }
+    // public function showtask(){
+    //     $project = Project::all();
+    //     dd($project->id);
+    //     $user = User::all();
+    //     $id = $project->project_id;
+    //     $tasks = Task::where('task_project_id', $id)->get();
+    //     return view('taskmanagment.showtask' ,compact('project','user'));
+    // }
 
-        public function showtask($id)
-{
-            $project = Project::find($id); // This is a collection
-            $tasks = Task::where('task_project_id',$project->id)->latest()->get();
-            return view('taskmanagment.showtask', compact('tasks','project'));
-}
-        public function viewtask(Request $request){
-            $projects = Project::where('id',$request->project)->latest()->first();
-            $tasks = Task::where('task_project_id',$request->project)->latest()->get();
+    public function showtask($id)
+    {
+        $project = Project::find($id); // This is a collection
+        $tasks = Task::where('task_project_id', $project->id)->latest()->get();
+        return view('taskmanagment.showtask', compact('tasks', 'project'));
+    }
+    public function viewtask(Request $request)
+    {
+        $projects = Project::where('id', $request->project)->latest()->first();
+        $tasks = Task::where('task_project_id', $request->project)->latest()->get();
+    }
+
+    public function edittask(Request $request, $id)
+    {
+        $id = Crypt::decrypt($id);
+        //$projects = Project::with('tasks')->where('id',$id)->first();
+        $project = Project::find($id);
+
+        $task = Task::where('task_id', $id)->latest()->first();
+
+        return view('taskmanagment.edittask', compact('task'));
+    }
+
+    public function updateTask(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:tasks,task_id',
+            'name' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'priority' => 'required|integer',
+            'status' => 'required|string',
+            'due_date' => 'nullable|date',
+        ]);
+
+        try {
+            // Fetch the task using `task_id`
+            $task = Task::where('task_id', $request->id)->firstOrFail();
+
+            // Map status to numeric values
+            $statusMap = [
+                'pending' => 0,
+                'completed' => 1,
+                'working' => 2,
+                'overdue' => 3,
+            ];
+            $status = $statusMap[$request->status] ?? 0;
+
+            // Update task fields
+            $task->update([
+                'task_name' => $request->name,
+                'task_desc' => $request->desc,
+                'task_priority' => $request->priority,
+                'task_status' => $status,
+                'task_due_date' => $request->due_date,
+                'updated_at' => now(), // Ensure updated_at is refreshed
+            ]);
+
+            return redirect()->route('taskmanagment.showtask',$task->task_project_id)->with('success', 'Task updated successfully.');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return back()->with('error', 'Failed to update task: ' . $e->getMessage());
         }
+    }
 
-        public function edittask( Request $request , $id){
-            $id = Crypt::decrypt($id);
-            //$projects = Project::with('tasks')->where('id',$id)->first();
-            $project = Project::find($id);
-            
-            $tasks = Task::all();
-            $task = Task::find($id);
-            
-            foreach($tasks as $task){
-              //  $task = Task::where('task_project_id', '$tasks->task_id')->latest()->get();
-            }
-            $user = User::all();
-            dd($task);
 
-            return view('taskmanagment.edittask', compact('tasks'));
-        }
+    public function deletetask(Request $request, $id)
+    {
+        $id = Crypt::decrypt($id);
+        $project = Project::findOrFail($id);
+        $tasks = Task::where('id', $project->task_id)->first();
+        $tasks->delete();
 
-        public function deletetask(Request $request,$id){
-            $id = Crypt::decrypt($id);
-            $project = Project::findOrFail($id);
-            $tasks = Task::where('id', $project->task_id)->first();
-            $tasks-> delete();
-           
-            return redirect()->route('taskmanagmnet.showtask')->with('success', 'Task deleted successfully!');
-        }
+        return redirect()->route('taskmanagmnet.showtask')->with('success', 'Task deleted successfully!');
+    }
 }
