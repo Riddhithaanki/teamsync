@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/employees', EmployeeController::class);
     Route::post('employess/save', [EmployeeController::class, 'save'])->name('employees.save');
     Route::post('employess/update', [EmployeeController::class, 'update'])->name('employees.updateData');
-  //  Route::post('employes/edit', [EmployeeController::class,'edit'])->name('employees.edit');
+    //Route::post('employes/edit', [EmployeeController::class,'edit'])->name('employees.edit');
 
 
     // Task Managment
@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('task/savetask', [TaskManagmentController::class,'savetask'])->name('taskmanagment.savetask');
     Route::get('task/showtask/{id}', [TaskManagmentController::class,'showtask'])->name('taskmanagment.showtask');
     Route::post('task/viewtask', [TaskManagmentController::class,'viewtask'])->name('taskmanagment.viewtask');
+    Route::get('task/edittask{id}', [TaskManagmentController::class,'edittask'])->name('taskmanagment.edittask');
+    Route::post('task/deletetask', [TaskManagmentController::class,'deletetask'])->name('taskmanagment.deletetask');
 });
 
 Auth::routes();

@@ -64,13 +64,11 @@
                                     <td>{{ \Carbon\Carbon::parse($task->created_at)->format('M d, Y') }}</td>
                                     <td>
                                         <div class="btn-group m-2">
-                                            <a href="" class="btn btn-info btn-sm m-1">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="" class="btn btn-warning btn-sm m-1">
+                                           
+                                            <a href="{{route('taskmanagment.edittask', \Crypt::encrypt($task->task_id))}}" class="btn btn-warning btn-sm m-1">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="" method="POST" style="display: inline">
+                                            <form action="{{ route('taskmanagment.deletetask', \Crypt::encrypt($task->task_id)) }}" method="POST" style="display: inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm m-1" onclick="return confirm('Are you sure you want to delete this task?')">

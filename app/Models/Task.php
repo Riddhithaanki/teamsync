@@ -12,6 +12,10 @@ use Illuminate\Database\Eloquent\Model;
     public function user() {
         return $this->belongsTo(User::class, 'assigned_to');
     }
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 }
 
 

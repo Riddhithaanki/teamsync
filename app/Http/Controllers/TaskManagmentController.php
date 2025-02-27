@@ -202,4 +202,29 @@ class TaskManagmentController extends Controller
             $tasks = Task::where('task_project_id',$request->project)->latest()->get();
         }
 
+        public function edittask( Request $request , $id){
+            $id = Crypt::decrypt($id);
+            //$projects = Project::with('tasks')->where('id',$id)->first();
+            $project = Project::find($id);
+            
+            $tasks = Task::all();
+            $task = Task::find($id);
+            
+            foreach($tasks as $task){
+              //  $task = Task::where('task_project_id', '$tasks->task_id')->latest()->get();
+            }
+            $user = User::all();
+            dd($task);
+
+            return view('taskmanagment.edittask', compact('tasks'));
+        }
+
+        public function deletetask(Request $request,$id){
+            $id = Crypt::decrypt($id);
+            $project = Project::findOrFail($id);
+            $tasks = Task::where('id', $project->task_id)->first();
+            $tasks-> delete();
+           
+            return redirect()->route('taskmanagmnet.showtask')->with('success', 'Task deleted successfully!');
+        }
 }
