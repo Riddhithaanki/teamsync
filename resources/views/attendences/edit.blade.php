@@ -16,6 +16,7 @@
 
             <form action="{{ route('attendences.save') }}" method="POST">
                 @csrf
+                <input type="text" name="id" id="id" value="{{ $attendences->user_id }}" hidden>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -37,7 +38,7 @@
                         <div class="form-group">
                             <label for="date">Date</label>
                             <input type="date" name="date" class="form-control @error('date') is-invalid @enderror"
-                                id="date" value="{{ old('date', date('Y-m-d')) }}" required>
+                                id="date" value="{{$attendences->date}}" required>
                             @error('date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -56,7 +57,7 @@
                                         <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                     </div>
                                     <input type="text" name="time_in" class="form-control @error('time_in') is-invalid @enderror" 
-                                           id="time_in" value="{{ old('time_in', now()->format('H:i:s')) }}" readonly required>
+                                           id="time_in" value="{{$attendences->time_in}}" readonly required>
                                     @error('time_in')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -75,7 +76,7 @@
                                         <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                     </div>
                                     <input type="text" name="time_out" class="form-control @error('time_out') is-invalid @enderror" 
-                                           id="time_out" value="{{ old('time_out') }}" readonly>
+                                           id="time_out" value="{{$attendences->time_out}}" readonly>
                                     @error('time_out')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -111,7 +112,7 @@
                             <div class="form-group">
                                 <label for="location">Location</label>
                                 <select name="location" class="form-control select2 @error('status') is-invalid @enderror" id="status">
-                                    <option value="">Select location</option>
+                                    <option value="{{$attendences->location}}">Select location</option>
                                     <option value="office" {{ old('location') == 'office' ? 'selected' : '' }}>Office</option>
                                     <option value="online" {{ old('location') == 'online' ? 'selected' : '' }}>Online</option>
                                    </select>

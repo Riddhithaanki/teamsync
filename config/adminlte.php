@@ -334,6 +334,13 @@ return [
             'url' => '/task',
             'icon' => 'far fa-fw fa-users',
             'label_color' => 'success',
+        ],
+        ['header' => 'Chat'],
+        [
+            'text' => 'Chat Managment',
+            'url' => '/chat',
+            'icon' => 'far fa-fw fa-users',
+            'label_color' => 'success',
         ]
         
        

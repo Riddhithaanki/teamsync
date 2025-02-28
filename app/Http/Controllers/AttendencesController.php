@@ -52,6 +52,11 @@ class AttendencesController extends Controller
         $attendences = attendences::where('id', $id)->first();
         
         return view('attendences.edit',compact('attendences'));
+        //return view('attendences.edit');
     }
-
+    public function delete($id){
+        $attendences = Attendences::whereId($id)->first();
+        $attendences->delete();
+        return view('attendences.index')->with('success','Attendence Delete Successfully');
+    }
 }

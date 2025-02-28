@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-tools">
                         <a href="{{ route('attendences.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add Employee
+                            <i class="fas fa-plus"></i> Add Attendence
                         </a>
                     </div>
                     <div class="card-header">
@@ -57,12 +57,12 @@
                                     <td>{{ $list->location}}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{route('attendences.edit',\Crypt::encrypt($attendences->user_id))}}"
+                                            <a href="{{route('attendences.edit',\Crypt::encrypt($attendences->id)) }}"
                                                 class="btn btn-warning btn-sm mx-2" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             
-                                            <a href=""
+                                            <a href="{{route('attendences.delete')}}"
                                                 class="btn btn-danger btn-sm mx-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </a>

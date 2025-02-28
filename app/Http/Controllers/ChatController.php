@@ -1,27 +1,16 @@
 <?php
-namespace App\Http\Controllers; 
 
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
+
 use App\Models\User;
-use App\Models\Employee;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Http\Request;
+
 
 class ChatController extends Controller
 {
-    public function index()
-    {
-        $employees = Employee::with('user')->get();
-        return view('chat.index', compact('employees'));
+    public function index() {
+        return view("chat.index");
     }
-    public function seen(Request $request)
-{
-    try {
-        $message = Message::where('from_id', $request->from_id)
-                          ->where('to_id', $request->to_id)
-                          ->update(['seen' => true]);
-
-        return response()->json(['success' => true]);
-    } catch (\Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
-    }
-}
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendencesController;
 use App\Http\Controllers\TaskManagmentController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\model\Task;
@@ -75,8 +76,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('attendences',[AttendencesController::class,'index'])->name('attendences.index');
     Route::post('attendences/save',[AttendencesController::class,'save'])->name('attendences.save');
     Route::get('attendences/create',[AttendencesController::class,'create'])->name('attendences.create');
-    Route::get('attendences/edit{id}',[AttendencesController::class,'edit'])->name('attendences.edit');
+    Route::get('attendences/edit/{id}',[AttendencesController::class,'edit'])->name('attendences.edit');
+    Route::post('attendences/delete',[AttendencesController::class,'delete'])->name('attendences.delete');
 
+    //chat managment
+    Route::get('/chat',[ChatController::class,'index'])->name('chat.index');
 });
 
 Auth::routes();
