@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Employee List</h3>
-                        <div class="card-tools">
+                        <div class="card-tools ">
                             <a href="{{ route('employees.create') }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Add Employee
                             </a>
@@ -70,7 +70,7 @@
                                         <td>${{ number_format($employee->salary, 2) }}</td>
                                         <td>{{ \Carbon\Carbon::parse($employee->hire_date)->format('M d, Y') }}</td>
                                         <td>
-                                            <div class="btn-group">
+                                            <div class="btn-group ">
                                                 <a href="{{ route('employees.edit', \Crypt::encrypt($employee->id)) }}"
                                                     class="btn btn-warning btn-sm" title="Edit">
                                                     <i class="fas fa-edit"></i>
@@ -80,7 +80,7 @@
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                    <button type="submit" class="btn btn-danger btn-sm mx-2"
                                                         onclick="return confirm('Are you sure you want to delete this employee?')"
                                                         title="Delete">
                                                         <i class="fas fa-trash"></i>

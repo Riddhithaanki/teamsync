@@ -23,12 +23,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
                     <div class="card-tools">
                         <a href="{{ route('attendences.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus"></i> Add Attendance
                         </a>
                     </div>
-                    <div class="card-header">
+                    
                         <table id="projects-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -45,7 +46,7 @@
                             <tbody>  
                                 @foreach ($attendences as $list)
                                 <tr>
-                                    <td>{{ $list->user_id }}</td>
+                                    <td>{{ $list->id }}</td>
                                     <td>
                                         <span class="name">{{ $list->user_name }}</span>
                                     </td>

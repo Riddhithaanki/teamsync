@@ -77,7 +77,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('attendences/save',[AttendencesController::class,'save'])->name('attendences.save');
     Route::get('attendences/create',[AttendencesController::class,'create'])->name('attendences.create');
     Route::get('attendences/edit/{id}',[AttendencesController::class,'edit'])->name('attendences.edit');
-    Route::post('attendences/delete',[AttendencesController::class,'delete'])->name('attendences.delete');
+    Route::post('attendence/update',[AttendencesController::class,'update'])->name('attendences.update');
+    Route::get('attendences/delete/{id}',[AttendencesController::class,'delete'])->name('attendences.delete');
 
     //chat managment
     Route::get('/chat',[ChatController::class,'index'])->name('chat.index');

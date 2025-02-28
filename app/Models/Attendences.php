@@ -9,7 +9,7 @@ class Attendences extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'user_name', 'time_in', 'time_out','status','location'];
+    protected $fillable = ['id','user_id', 'user_name', 'time_in', 'time_out','status','location'];
 
     public function user() {
         return $this->belongsTo(User::class);

@@ -3,7 +3,7 @@
 @section('title', 'Add Attendence')
 
 @section('content_header')
-    <h1>Add Attendence</h1>
+    <h1>Edit Attendence</h1>
 @stop
 
 @section('content')
@@ -14,21 +14,22 @@
                 <h3 class="card-title">Attendence Information</h3>
             </div>
 
-            <form action="{{ route('attendences.save') }}" method="POST">
+            <form action="{{ route('attendences.update') }}" method="POST">
                 @csrf
-                <input type="text" name="id" id="id" value="{{ $attendences->user_id }}" hidden>
+                <input type="text" name="id" id="id" value="{{ $attendences->id }}" hidden>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                    id="name" placeholder="Enter full name" value="{{$attendences->user_name}}" required>
+                                id="name" placeholder="Enter full name" value="{{ old('name', $attendences->user_name ?? '') }}" required>
                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
+
                             </div>
                         </div>
                     
@@ -38,7 +39,7 @@
                         <div class="form-group">
                             <label for="date">Date</label>
                             <input type="date" name="date" class="form-control @error('date') is-invalid @enderror"
-                                id="date" value="{{$attendences->date}}" required>
+                                id="date" value="{{old('name',$attendences->date ??'')}}" required>
                             @error('date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -48,56 +49,63 @@
                     </div></div>
                     
                     <div class="row">
-                        <!-- Time In -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="time_in">Time In</label>
+                                <label for="time_in" class="text-primary">
+                                    <i class="fas fa-clock mr-1"></i> Time In
+                                </label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                     </div>
                                     <input type="text" name="time_in" class="form-control @error('time_in') is-invalid @enderror" 
-                                           id="time_in" value="{{$attendences->time_in}}" readonly required>
-                                    @error('time_in')
+                                        id="time_in" value="{{ old('time_in', \Carbon\Carbon::parse($attendences->time_in ?? '')->format('h:i A')) }}" required>                                
+                                        
+                                       
+                                        {{-- @error('time_in')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                             </div>
                         </div>
-                    
-                        <!-- Time Out -->
+                        
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="time_out">Time Out</label>
+                                <label for="time_out" class="text-primary">
+                                    <i class="fas fa-clock mr-1"></i> Time Out
+                                </label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                     </div>
                                     <input type="text" name="time_out" class="form-control @error('time_out') is-invalid @enderror" 
-                                           id="time_out" value="{{$attendences->time_out}}" readonly>
-                                    @error('time_out')
+                                    id="time_out" value="{{ old('time_out', \Carbon\Carbon::parse($attendences->time_out ?? '')->format('h:i A')) }}" required>
+                                    
+                                    {{-- @error('time_out')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     
+                        
+                        
                     <div class="row">
                         <!-- Status -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="status">Status</label>
                                 <select name="status" class="form-control select2 @error('status') is-invalid @enderror" id="status">
-                                    <option value="">Select Status</option>
-                                    <option value="present" {{ old('status') == 'present' ? 'selected' : '' }}>Present</option>
-                                    <option value="absent" {{ old('status') == 'absent' ? 'selected' : '' }}>Absent</option>
-                                    <option value="late" {{ old('status') == 'late' ? 'selected' : '' }}>Late</option>
-                                    <option value="on_leave" {{ old('status') == 'on_leave' ? 'selected' : '' }}>On Leave</option>
+                                    <option value="{{$attendences->status}}">Select Status</option>
+                                    <option value="present" {{ old('status',$attendences->status) == 'present' ? 'selected' : '' }}>Present</option>
+                                    <option value="absent" {{ old('status',$attendences->status) == 'absent' ? 'selected' : '' }}>Absent</option>
+                                    <option value="late" {{ old('status',$attendences->status) == 'late' ? 'selected' : '' }}>Late</option>
+                                    <option value="on_leave" {{ old('status',$attendences->status) == 'on_leave' ? 'selected' : '' }}>On Leave</option>
                                 </select>
                                 @error('status')
                                     <span class="invalid-feedback" role="alert">
@@ -111,20 +119,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="location">Location</label>
-                                <select name="location" class="form-control select2 @error('status') is-invalid @enderror" id="status">
-                                    <option value="{{$attendences->location}}">Select location</option>
-                                    <option value="office" {{ old('location') == 'office' ? 'selected' : '' }}>Office</option>
-                                    <option value="online" {{ old('location') == 'online' ? 'selected' : '' }}>Online</option>
-                                   </select>
-                                    @error('location')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                    
-                                </div>
+                                <select name="location" class="form-control select2 @error('location') is-invalid @enderror" id="location">
+                                    <option value="{{$attendences->location}}">Select Location</option>
+                                    <option value="office" {{ old('location', $attendences->location) == 'office' ? 'selected' : '' }}>Office</option>
+                                    <option value="online" {{ old('location', $attendences->location) == 'online' ? 'selected' : '' }}>Online</option>
+                                </select>
+                                @error('location')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
+                        
                     </div>
                     
                     

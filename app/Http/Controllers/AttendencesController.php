@@ -32,30 +32,56 @@ class AttendencesController extends Controller
 
 
         $attendences = new Attendences();
-        $attendences->user_id = 5;
+        $attendences->id = $request->id;
         $attendences->user_name = $request->name;
         $attendences->date = $request->date;
         $attendences->location = $request->location;
         $attendences->status = $request->status;
-        $attendences->time_in = carbon::createFromFormat('h:i:s A', $request->time_in)->format('H:i:s');
-        $attendences->time_out = carbon::createFromFormat('h:i:s A', $request->time_in)->format('H:i:s');
+        $attendences->time_in = $request->time_in;
+        $attendences->time_out = $request->time_out;
         $attendences->save();
 
         $user = New User();
-        $user->name = $request->name;
+        $user->user_name = $request->name;
+        //$user->user_id = $request->id;
     
         return redirect()->route('attendences.index')->with('success', 'Attendence added successfully!');
     }
 
     public function edit($id){
-        $attendences = Attendences::get();
+       // $attendences = Attendences::get();
         $id = Crypt::decrypt($id);
-        $attendences = attendences::where('id', $id)->first();
-        
+        $attendences = Attendences::where('id', $id)->first();
+        //dd($attendences);
         return view('attendences.edit',compact('attendences'));
-        //return view('attendences.edit');
+      
     }
+
+    public function update(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required',
+            'date' => 'required',
+            'status' => 'nullable',
+            'location' => 'required',
+            'time_in' => 'required'
+        ]);
+        $attendences = Attendences::findOrFail($request->id);
+        $attendences->user_name = $request->name;
+        $attendences->date= $request->date;
+        $attendences->status = $request->status;
+        $attendences->location = $request->location;
+        $attendences->time_in = Carbon::createFromFormat('h:i A', $request->time_in)->format('H:i:s');
+        $attendences->time_out = Carbon::createFromFormat('h:i A', $request->time_out)->format('H:i:s');
+        $attendences->save();
+
+        return redirect()->route('attendences.index')->with('success', 'Attendences update succesfully ');
+    }
+
+
     public function delete($id){
+        $id = Crypt::decrypt($id);
         $attendences = Attendences::whereId($id)->first();
         $attendences->delete();
         return view('attendences.index')->with('success','Attendence Delete Successfully');
