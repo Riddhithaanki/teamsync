@@ -12,6 +12,7 @@ class AttendencesController extends Controller
 {
     public function index() {
         $attendences= Attendences::get();
+        
         return view('attendences.index',compact('attendences'));
     }
 

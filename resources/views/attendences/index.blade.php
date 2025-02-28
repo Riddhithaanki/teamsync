@@ -1,23 +1,23 @@
-
 @extends('adminlte::page')
 
-@section('title', 'Attendence Management')
+@section('title', 'Attendance Management')
 
 @section('content_header')
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Attendence  Management</h1>
+                <h1>Attendance Management</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="">Home</a></li>
-                    <li class="breadcrumb-item active">Attendence</li>
+                    <li class="breadcrumb-item active">Attendance</li>
                 </ol>
             </div>
         </div>
     </div>
 @stop
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-tools">
                         <a href="{{ route('attendences.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add Attendence
+                            <i class="fas fa-plus"></i> Add Attendance
                         </a>
                     </div>
                     <div class="card-header">
@@ -44,32 +44,36 @@
                             </thead>
                             <tbody>  
                                 @foreach ($attendences as $list)
-
                                 <tr>
-                                    <td>{{$list->user_id}}
+                                    <td>{{ $list->user_id }}</td>
                                     <td>
                                         <span class="name">{{ $list->user_name }}</span>
                                     </td>
-                                    <td>{{ $list->date}}</td>
+                                    <td>{{ $list->date }}</td>
                                     <td>{{ $list->time_in }}</td>
                                     <td>{{ $list->time_out }}</td>
                                     <td>{{ $list->status }}</td>
-                                    <td>{{ $list->location}}</td>
+                                    <td>{{ $list->location }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{route('attendences.edit',\Crypt::encrypt($attendences->id)) }}"
+                                            <a href="{{ route('attendences.edit', \Crypt::encrypt($list->id)) }}"
                                                 class="btn btn-warning btn-sm mx-2" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             
-                                            <a href="{{route('attendences.delete')}}"
+                                            <a href="{{ route('attendences.delete', ['id' => Crypt::encrypt($list->id)]) }}"
                                                 class="btn btn-danger btn-sm mx-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                        </td>
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
-
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
