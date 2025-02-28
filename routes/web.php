@@ -73,6 +73,10 @@ Route::middleware(['auth'])->group(function () {
 
     //attendence managment
     Route::get('attendences',[AttendencesController::class,'index'])->name('attendences.index');
+    Route::post('attendences/save',[AttendencesController::class,'save'])->name('attendences.save');
+    Route::get('attendences/create',[AttendencesController::class,'create'])->name('attendences.create');
+    Route::get('attendences/edit{id}',[AttendencesController::class,'edit'])->name('attendences.edit');
+
 });
 
 Auth::routes();

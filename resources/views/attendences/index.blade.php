@@ -23,12 +23,18 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-tools">
+                        <a href="{{ route('attendences.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Employee
+                        </a>
+                    </div>
                     <div class="card-header">
                         <table id="projects-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Date</th>
                                     <th>Time-In</th> 
                                     <th>Time-out</th>
                                     <th>Status</th>
@@ -44,13 +50,14 @@
                                     <td>
                                         <span class="name">{{ $list->user_name }}</span>
                                     </td>
+                                    <td>{{ $list->date}}</td>
                                     <td>{{ $list->time_in }}</td>
                                     <td>{{ $list->time_out }}</td>
                                     <td>{{ $list->status }}</td>
                                     <td>{{ $list->location}}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href=""
+                                            <a href="{{route('attendences.edit',\Crypt::encrypt($attendences->user_id))}}"
                                                 class="btn btn-warning btn-sm mx-2" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
