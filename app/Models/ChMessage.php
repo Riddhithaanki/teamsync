@@ -9,8 +9,6 @@ use Chatify\MessageCollection;
 
 class ChMessage extends Model
 {
-    use UUID;
-
     /**
      * Get the user who sent the message.
      *

@@ -338,7 +338,7 @@ return [
         ['header' => 'Chat'],
         [
             'text' => 'Chat Managment',
-            'url' => '/chatify',
+            'url' => '/chat',
             'icon' => 'far fa-fw fa-users',
             'label_color' => 'success',
         ]

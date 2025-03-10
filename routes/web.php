@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\HRController;
 use App\Http\Controllers\TechLeadController;
 use App\Http\Controllers\DeveloperController;
@@ -11,6 +10,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendencesController;
 use App\Http\Controllers\TaskManagmentController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ScreenshotController;
+use App\Http\Controllers\BrowsershotController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\model\Task;
@@ -82,6 +83,13 @@ Route::middleware(['auth'])->group(function () {
 
     //chat managment
     Route::get('/chat',[ChatController::class,'index'])->name('chat.index');
+    Route::get('chats',[ChatController::class,'chats'])->name('chats');
+    Route::get('showchat/{id}',[ChatController::class,'showchat'])->name('showchat.index');
+    Route::post('send/{id}',[ChatController::class,'send'])->name('chat.send');
+    
+    //screenshot 
+    Route::get('/process', [ScreenshotController::class, 'store'])->name('process.store');
+
 });
 
 Auth::routes();
