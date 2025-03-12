@@ -41,7 +41,7 @@
                     <nav class="navbar navbar-light bg-light mb-2">
                         <form class="container-fluid justify-content-start">
                             <a href="{{route('chats')}}" class="btn btn-sm btn-outline-success me-3">People</a>
-                            <button class="btn btn-sm btn-outline-success me-2" type="button">Group</button>
+                            <a href="{{ route('groups.create') }}" class="btn btn-sm btn-outline-success me-2" type="button">Group</a>
                         </form>
                     </nav>
                     

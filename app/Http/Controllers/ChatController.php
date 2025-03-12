@@ -8,6 +8,7 @@ use  Illuminate\Auth\SessionGuard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
+use App\Events\MessageSent;
 
 
 class ChatController extends Controller
@@ -70,7 +71,7 @@ class ChatController extends Controller
             })
             ->orderBy('created_at', 'desc') // Optional: Order messages by time
             ->get();
-
+        //    return redirect()->back();
         return view('chat.showchat', compact('message','chatmessages'));
     }
 
@@ -78,4 +79,16 @@ class ChatController extends Controller
     {
         return view('chat.edit');
     }
+
+    public function sendMessage(Request $request)
+{
+    $message = $request->input('message');
+    $user = auth()->user();
+
+    broadcast(new MessageSent($message, $user))->toOthers();
+
+    return response()->json(['success' => true]);
+    }
+
+
 }

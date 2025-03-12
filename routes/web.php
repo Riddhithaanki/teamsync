@@ -11,10 +11,11 @@ use App\Http\Controllers\AttendencesController;
 use App\Http\Controllers\TaskManagmentController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ScreenshotController;
-use App\Http\Controllers\BrowsershotController;
+use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\model\Task;
+use Illuminate\Mail\SentMessage;
 
 // Landing Page
 Route::get('/', function () {
@@ -24,7 +25,7 @@ Route::get('/', function () {
 Auth::routes();
 
 // Protected Routes (Requires Authentication)
-Route::middleware(['auth'])->group(function () {
+//Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -87,6 +88,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('showchat/{id}',[ChatController::class,'showchat'])->name('showchat.index');
     Route::post('send/{id}',[ChatController::class,'send'])->name('chat.send');
     
+   // group chat managment
+    Route::middleware(['auth'])->group(function () {
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+
     //screenshot 
     Route::get('/process', [ScreenshotController::class, 'store'])->name('process.store');
 

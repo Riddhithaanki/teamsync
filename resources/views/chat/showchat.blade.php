@@ -24,7 +24,7 @@
         <div class="col-md-12">
             <div class="card direct-chat direct-chat-primary shadow-lg border-0 rounded-lg">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="card-title"><i class="fas fa-comments mr-1"></i> {{$reciverUser->name}}</h3>
+                    <h3 class="card-title"><i class="fas fa-comments mr-1"></i>user name </h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool text-white" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
