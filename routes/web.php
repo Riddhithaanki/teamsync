@@ -35,7 +35,7 @@ Auth::routes();
     });
 
     Route::middleware(['role:hr'])->group(function () {
-        Route::get('/hr', [HRController::class, 'index'])->name('hr.dashboard');
+        Route::get('/hr', [HRController::class, 'dashboard'])->name('hr.dashboard');
     });
 
     Route::middleware(['role:tech_lead'])->group(function () {
@@ -92,6 +92,9 @@ Auth::routes();
     Route::middleware(['auth'])->group(function () {
     Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
     Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+    Route::get('groupschat/{id}',[GroupController::class,'groupschat'])->name('groups.groupchat');
+    Route::post('sendgroupchat/{id}',[GroupController::class,'send'])->name('groups.sendchats');
+    Route::delete('deletegroups/{id}',[GroupController::class,'delete'])->name('groups.delete');
 
     //screenshot 
     Route::get('/process', [ScreenshotController::class, 'store'])->name('process.store');

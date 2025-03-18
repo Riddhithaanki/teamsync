@@ -22,18 +22,18 @@ class ChatController extends Controller
         return view("chat.index", compact('users', 'chatmessages'));
     }
 
-    public function chats()
-    {
-        $users = User::get();
-        dd($users);
-    }
+    // public function chats()
+    // {
+    //     $users = User::get();
+    //     dd($users);
+    // }
 
     public function showchat($id)
     {
         $id = Crypt::decrypt($id);
         $reciverUser = User::find($id);
         $senderUser = Auth::user();
-
+        
         $chatmessages = ChMessage::where(function ($query) use ($senderUser, $reciverUser) {
             $query->where('from_id', $senderUser->id)
                 ->where('to_id', $reciverUser->id);

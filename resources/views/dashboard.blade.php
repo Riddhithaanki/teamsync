@@ -15,7 +15,18 @@
     <script type="text/javascript"
     src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     
-    <script>
+    
+@stop
+
+@section('css')
+    {{-- Add here extra stylesheets --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+   
+@stop
+@section('js')
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+@stop
+<script>
     jQuery('#btn_capture').click(function(){
         jQuery('#btn_capture').hide();
         const t=document.body;
@@ -40,13 +51,3 @@
     });
         //console.log(t);
     </script>
-@stop
-
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-   
-@stop
-@section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
-@stop

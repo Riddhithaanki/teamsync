@@ -8,6 +8,6 @@ class TechLeadController extends Controller
 {
     public function index()
     {
-        return view('hr.dashboard'); // Make sure this view exists
+        return view('techlead.dashboard'); // Make sure this view exists
     }
 }
